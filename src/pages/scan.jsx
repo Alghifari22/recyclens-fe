@@ -216,42 +216,35 @@ const Scan = () => {
               <h3 className="text-lg font-bold mb-4 text-center">Hasil Deteksi Sampah</h3>
               
               {/* Image preview */}
-              <div className={`mb-4 rounded-lg overflow-hidden border ${borderColor}`}>
+              <div className={`mb-2 rounded-lg overflow-hidden border ${borderColor}`}>
                 <img src={previewImage} alt="Sampah terdeteksi" className="w-full h-48 object-cover" />
               </div>
               
               {/* Results in a more visual format */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-2 gap-2 mb-2">
                 <div className="bg-gray-100 p-3 rounded-lg text-center">
                   <p className="text-xs text-gray-500 mb-1">Kategori</p>
-                  <p className="font-bold text-lg">{result.kategori}</p>
+                  <p className="font-bold text-sm">{result.kategori}</p>
                 </div>
                 <div className="bg-gray-100 p-3 rounded-lg text-center">
                   <p className="text-xs text-gray-500 mb-1">Akurasi</p>
-                  <p className="font-bold text-lg">{result.persen}</p>
+                  <p className="font-bold text-sm">{result.persen}</p>
                 </div>
                 <div className="col-span-2 bg-gray-100 p-3 rounded-lg text-center">
                   <p className="text-xs text-gray-500 mb-1">Prediksi</p>
-                  <p className="font-bold text-lg capitalize">{(result.prediksi === "beterai") ? "Baterai" : result.prediksi}</p>
+                  <p className="font-bold text-sm capitalize">{(result.prediksi === "beterai") ? "Baterai" : result.prediksi}</p>
                 </div>
               </div>
               
               {/* Description */}
-              <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
-                <p className="text-sm font-medium text-gray-500 mb-1">Deskripsi:</p>
-                <p className="text-gray-700">{getDescription()}</p>
+              <div className="p-2 bg-teal-50 border border-teal-200 rounded-lg">
+                <p className="text-xs font-medium text-gray-500 mb-1">Deskripsi:</p>
+                <p className="text-gray-700 text-sm">{getDescription()}</p>
               </div>
               
-              {/* Debug information - only show in development */}
-              {process.env.NODE_ENV === 'development' && result && (
-                <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-left overflow-auto max-h-32">
-                  <p className="font-medium">API Response:</p>
-                  <pre>{JSON.stringify(result, null, 2)}</pre>
-                </div>
-              )}
             </div>
             
-            <div className="bg-gray-100 px-6 py-3 flex justify-end rounded-b-lg">
+            <div className="bg-gray-100 px-6 py-1 flex justify-end rounded-b-lg">
               <button 
                 onClick={closeModal}
                 className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-teal-500 transition-colors"

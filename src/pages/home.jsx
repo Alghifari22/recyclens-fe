@@ -22,6 +22,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const settings = {
@@ -112,9 +113,11 @@ const Home = () => {
                             Cukup unggah atau ambil foto, dan biarkan sistem
                             kami mengidentifikasi jenis sampah untuk Anda.
                         </p>
-                        <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-green-600">
+                        <Link to="/scan">
+                        <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-teal-600 transition duration-300">
                             Scan Sampah
                         </button>
+                        </Link>
                     </div>
                     <div className="md:w-1/2 flex justify-center">
                         <img
@@ -163,9 +166,11 @@ const Home = () => {
                             Bergabunglah dengan kami dalam menjaga kebersihan
                             lingkungan untuk masa depan yang lebih hijau!
                         </p>
-                        <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-green-600">
+                        <Link to="/about">
+                        <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-teal-600 transition duration-300">
                             Selengkapnya
                         </button>
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -269,9 +274,11 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <button className="bg-[#D3DE32] hover:bg-green-600 hover:text-white text-[#006A71] font-bold py-3 px-12 rounded-md mt-8">
+                    <Link to="/scan">
+                    <button className="bg-[#D3DE32] hover:bg-teal-600 transition duration-300 hover:text-white text-[#006A71] font-bold py-3 px-12 rounded-md mt-8">
                         Scan Sekarang
                     </button>
+                    </Link>
                 </div>
             </section>
 
@@ -392,9 +399,11 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
+                    <Link to="/blog">
                     <button className="mt-8 px-6 py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800">
                         Jelajahi Blog
                     </button>
+                    </Link>
                 </div>
             </section>
         </div>

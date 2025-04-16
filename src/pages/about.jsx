@@ -2,7 +2,7 @@ import bghome from "../assets/image/background/bghome.png";
 import bgAboutus from "../assets/image/background/bgAboutus.png";
 import bgRecyclens from "../assets/image/background/bgwhyrecyclens.png";
 import trash from "../assets/image/trash.png";
-import handrecyc from "../assets/image/handrecyc.jpg";
+import handrecyc from "../assets/image/handrecyc.png";
 import { CheckSquare, Linkedin } from "lucide-react";
 import member1 from "../assets/image/team/member1.png";
 import member2 from "../assets/image/team/member2.png";
@@ -88,7 +88,7 @@ const About = () => {
       >
         <div className="grid md:grid-cols-2 place-items-center">
           {/* Recycle Image */}
-          <div className="pl-4 md:pl-16">
+          <div className="">
             <img
               src={handrecyc}
               alt="Recycle Icon"
