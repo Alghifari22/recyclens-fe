@@ -2,11 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/footer";
+import Organik from "./pages/education/organik";
+import Anorganik from "./pages/education/anorganik";
+import Berbahaya from "./pages/education/berbahaya";
 
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
 const Scan = lazy(() => import("./pages/scan"));
-const Education = lazy(() => import("./pages/education"));
 const Blog = lazy(() => import("./pages/blog"));
 const Contact = lazy(() => import("./pages/contact"));
 
@@ -20,7 +22,9 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/scan" element={<Scan />} />
-                        <Route path="/education" element={<Education />} />
+                        <Route path="/organik" element={<Organik />} />
+                        <Route path="/anorganik" element={<Anorganik />} />
+                        <Route path="/b3" element={<Berbahaya />} />
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/contact" element={<Contact />} />
                     </Routes>
