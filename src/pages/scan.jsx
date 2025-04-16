@@ -148,9 +148,9 @@ const Scan = () => {
       className="py-8 px-4 md:px-16 bg-no-repeat bg-cover bg-center flex justify-center items-center"
       style={{
         backgroundImage: `url(${bgscan})`,
-        backgroundSize: "1440px 783px",
+        backgroundSize: "1440px 863px",
         backgroundRepeat: "no-repeat",
-        height: "640px",
+        height: "863px",
         backgroundPosition: "center 0px",
       }}
     >
@@ -244,7 +244,7 @@ const Scan = () => {
               
               {/* Debug information - only show in development */}
               {process.env.NODE_ENV === 'development' && result && (
-                <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-le overflow-auto max-h-32">
+                <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-left overflow-auto max-h-32">
                   <p className="font-medium">API Response:</p>
                   <pre>{JSON.stringify(result, null, 2)}</pre>
                 </div>
