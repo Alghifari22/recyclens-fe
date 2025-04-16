@@ -15,7 +15,9 @@ const Scan = () => {
   useEffect(() => {
     const enableCamera = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
         videoRef.current.srcObject = stream;
         setStreamActive(true);
       } catch (err) {
@@ -41,22 +43,28 @@ const Scan = () => {
 
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
-      const response = await fetch('/model/predict', {
-        method: 'POST',
+      const apiBaseUrl = import.meta.env.DEV
+        ? "/model"
+        : import.meta.env.VITE_API_MODEL_URL;
+
+      const response = await fetch(`${apiBaseUrl}/predict`, {
+        method: "POST",
         body: formData,
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(`API Error: ${data.detail || data.message || response.status}`);
+        throw new Error(
+          `API Error: ${data.detail || data.message || response.status}`
+        );
       }
 
-      if (data.kategori.toLowerCase() === 'organik') {
+      if (data.kategori.toLowerCase() === "organik") {
         setBorderColor("border-[#B9FF66]");
-      } else if (data.kategori.toLowerCase() === 'non-organik') {
+      } else if (data.kategori.toLowerCase() === "non-organik") {
         setBorderColor("border-[#FF8F2E]");
       } else {
         setBorderColor("border-[#FF3729]");
@@ -65,8 +73,10 @@ const Scan = () => {
       setResult(data);
       setShowModal(true);
     } catch (error) {
-      console.error('Error processing image:', error);
-      setError(`Gagal memproses gambar: ${error.message}. Pastikan format file didukung dan coba lagi.`);
+      console.error("Error processing image:", error);
+      setError(
+        `Gagal memproses gambar: ${error.message}. Pastikan format file didukung dan coba lagi.`
+      );
 
       if (import.meta.env.DEV) {
         const mockResult = {
@@ -115,11 +125,11 @@ const Scan = () => {
 
   const closeModal = () => {
     setShowModal(false);
-  };  
+  };
 
   const getDescription = () => {
     if (!result) return "";
-    
+
     switch (result.prediksi.toLowerCase()) {
       case "plastik":
         return "Sampah plastik membutuhkan waktu sangat lama untuk terurai. Sebaiknya didaur ulang atau digunakan kembali untuk mengurangi dampak lingkungan.";
@@ -209,52 +219,65 @@ const Scan = () => {
         {error && <p className="text-red-600 mt-2">{error}</p>}
 
         {/* Modal Dialog */}
-      {showModal && result && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
-            <div className="p-6">
-              <h3 className="text-lg font-bold mb-4 text-center">Hasil Deteksi Sampah</h3>
-              
-              {/* Image preview */}
-              <div className={`mb-2 rounded-lg overflow-hidden border ${borderColor}`}>
-                <img src={previewImage} alt="Sampah terdeteksi" className="w-full h-48 object-cover" />
-              </div>
-              
-              {/* Results in a more visual format */}
-              <div className="grid grid-cols-2 gap-2 mb-2">
-                <div className="bg-gray-100 p-3 rounded-lg text-center">
-                  <p className="text-xs text-gray-500 mb-1">Kategori</p>
-                  <p className="font-bold text-sm">{result.kategori}</p>
+        {showModal && result && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="p-6">
+                <h3 className="text-lg font-bold mb-4 text-center">
+                  Hasil Deteksi Sampah
+                </h3>
+
+                {/* Image preview */}
+                <div
+                  className={`mb-2 rounded-lg overflow-hidden border ${borderColor}`}
+                >
+                  <img
+                    src={previewImage}
+                    alt="Sampah terdeteksi"
+                    className="w-full h-48 object-cover"
+                  />
                 </div>
-                <div className="bg-gray-100 p-3 rounded-lg text-center">
-                  <p className="text-xs text-gray-500 mb-1">Akurasi</p>
-                  <p className="font-bold text-sm">{result.persen}</p>
+
+                {/* Results in a more visual format */}
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  <div className="bg-gray-100 p-3 rounded-lg text-center">
+                    <p className="text-xs text-gray-500 mb-1">Kategori</p>
+                    <p className="font-bold text-sm">{result.kategori}</p>
+                  </div>
+                  <div className="bg-gray-100 p-3 rounded-lg text-center">
+                    <p className="text-xs text-gray-500 mb-1">Akurasi</p>
+                    <p className="font-bold text-sm">{result.persen}</p>
+                  </div>
+                  <div className="col-span-2 bg-gray-100 p-3 rounded-lg text-center">
+                    <p className="text-xs text-gray-500 mb-1">Prediksi</p>
+                    <p className="font-bold text-sm capitalize">
+                      {result.prediksi === "beterai"
+                        ? "Baterai"
+                        : result.prediksi}
+                    </p>
+                  </div>
                 </div>
-                <div className="col-span-2 bg-gray-100 p-3 rounded-lg text-center">
-                  <p className="text-xs text-gray-500 mb-1">Prediksi</p>
-                  <p className="font-bold text-sm capitalize">{(result.prediksi === "beterai") ? "Baterai" : result.prediksi}</p>
+
+                {/* Description */}
+                <div className="p-2 bg-teal-50 border border-teal-200 rounded-lg">
+                  <p className="text-xs font-medium text-gray-500 mb-1">
+                    Deskripsi:
+                  </p>
+                  <p className="text-gray-700 text-sm">{getDescription()}</p>
                 </div>
               </div>
-              
-              {/* Description */}
-              <div className="p-2 bg-teal-50 border border-teal-200 rounded-lg">
-                <p className="text-xs font-medium text-gray-500 mb-1">Deskripsi:</p>
-                <p className="text-gray-700 text-sm">{getDescription()}</p>
+
+              <div className="bg-gray-100 px-6 py-1 flex justify-end rounded-b-lg">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-teal-500 transition-colors"
+                >
+                  Mengerti
+                </button>
               </div>
-              
-            </div>
-            
-            <div className="bg-gray-100 px-6 py-1 flex justify-end rounded-b-lg">
-              <button 
-                onClick={closeModal}
-                className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-teal-500 transition-colors"
-              >
-                Mengerti
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </div>
     </section>
   );

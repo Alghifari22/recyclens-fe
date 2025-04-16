@@ -11,7 +11,12 @@ export default function Blog() {
     const fetchBlogPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/blogs');
+
+        const apiBaseUrl = import.meta.env.DEV
+          ? "/api"
+          : import.meta.env.VITE_API_URL;
+
+        const response = await fetch(`${apiBaseUrl}/blogs`);
         
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
