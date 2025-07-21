@@ -36,6 +36,28 @@ const Scan = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const startCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          setStreamActive(true);
+        }
+      } catch (err) {
+        console.error("Gagal mengakses kamera", err);
+        setStreamActive(false);
+      }
+    };
+
+    if (previewImage === null && !streamActive) {
+      startCamera();
+    }
+  }, [previewImage, streamActive]);
+
+
   const processImage = async (file) => {
     setIsLoading(true);
     setError(null);
@@ -125,6 +147,8 @@ const Scan = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setPreviewImage(null);
+    setStreamActive(false);
   };
 
   const getDescription = () => {
@@ -175,12 +199,6 @@ const Scan = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
               <p className="text-teal-500">Memproses gambar...</p>
             </div>
-          ) : previewImage ? (
-            <img
-              src={previewImage}
-              alt="Preview"
-              className="w-full h-full object-cover"
-            />
           ) : (
             <video
               ref={videoRef}
@@ -188,6 +206,7 @@ const Scan = () => {
               playsInline
               muted
               className="w-full h-full object-cover"
+              style={{ transform: "scaleX(-1)" }}
             />
           )}
         </div>
@@ -235,6 +254,7 @@ const Scan = () => {
                     src={previewImage}
                     alt="Sampah terdeteksi"
                     className="w-full h-48 object-cover"
+                    style={{ transform: "scaleX(-1)" }}
                   />
                 </div>
 
