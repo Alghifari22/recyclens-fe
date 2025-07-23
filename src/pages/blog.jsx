@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import WhyRecyclensImage from "../assets/image/whyrecyclens.png";
+import { Link } from "react-router-dom";
 
 export default function Blog() {
   const [featuredPost, setFeaturedPost] = useState(null);
@@ -130,9 +131,11 @@ export default function Blog() {
                   {featuredPost.content.length > 150 && "..."}
                 </p>
                 <div className="flex justify-between items-center">
-                  <button className="bg-teal-600 text-white px-4 py-2 rounded-md text-sm hover:bg-teal-700">
-                    Baca Selengkapnya
-                  </button>
+                  <Link to={`/blog/${featuredPost.id}`}>
+                    <button className="bg-teal-600 text-white px-4 py-2 rounded-md text-sm hover:bg-teal-700">
+                      Baca Selengkapnya
+                    </button>
+                  </Link>
                   <div className="flex space-x-2">
                     <button className="text-gray-500 hover:text-gray-700">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -167,12 +170,14 @@ export default function Blog() {
                       {post.content.length > 80 && "..."}
                     </p>
                     <div className="flex justify-start">
-                      <button className="text-teal-600 text-xs flex items-center hover:text-teal-800">
-                        Baca Selengkapnya
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
+                      <Link to={`/blog/${post.id}`}>
+                        <button className="text-teal-600 text-xs flex items-center hover:text-teal-800">
+                          Baca Selengkapnya
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

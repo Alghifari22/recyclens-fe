@@ -5,6 +5,7 @@ import Footer from "./components/layout/footer";
 import Organik from "./pages/education/organik";
 import Anorganik from "./pages/education/anorganik";
 import Berbahaya from "./pages/education/berbahaya";
+import BlogDetail from "./pages/blog-detail";
 
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
@@ -26,6 +27,7 @@ function App() {
                         <Route path="/anorganik" element={<Anorganik />} />
                         <Route path="/b3" element={<Berbahaya />} />
                         <Route path="/blog" element={<Blog />} />
+                        <Route path="/blog/:id" element={<BlogDetail />} />
                         <Route path="/contact" element={<Contact />} />
                     </Routes>
                 </Suspense>
