@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://capstone-be-production-3f8e.up.railway.app',
+        target: 'https://7dc21a55bb6e.ngrok-free.app',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },

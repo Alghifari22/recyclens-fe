@@ -13,11 +13,15 @@ export default function BlogDetail() {
       try {
         setLoading(true);
 
-        const apiBaseUrl = import.meta.env.DEV
-          ? "/api"
-          : import.meta.env.VITE_API_URL;
+        const apiBaseUrl = "https://7dc21a55bb6e.ngrok-free.app";
 
-        const response = await fetch(`${apiBaseUrl}/blogs/${id}`);
+        const response = await fetch(`${apiBaseUrl}/blogs/${id}`,{
+          method: 'GET',
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
         
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
@@ -133,7 +137,7 @@ export default function BlogDetail() {
         {/* Featured image */}
         <div className="mb-8 rounded-xl overflow-hidden">
           <img 
-            src={`/api/blog_thumbnails/${post.thumbnail}`} 
+            src={`https://7dc21a55bb6e.ngrok-free.app/blog_thumbnails/${post.thumbnail}`} 
             alt={post.title}
             className="w-full h-64 md:h-96 object-cover"
             onError={(e) => {
